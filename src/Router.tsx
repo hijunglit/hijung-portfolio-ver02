@@ -10,6 +10,8 @@ import About from "./screens/About";
 import Projects from "./screens/Projects";
 import Contact from "./screens/Contact";
 import Root from "./Root";
+import NotFound from "./screens/NotFound";
+import ErrorComponent from "./components/ErrorComponent";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +21,7 @@ const router = createBrowserRouter([
       {
         path: "",
         element: <Home />,
+        errorElement: <ErrorComponent />,
       },
       {
         path: "about",
@@ -33,6 +36,7 @@ const router = createBrowserRouter([
         element: <Contact />,
       },
     ],
+    errorElement: <NotFound />,
   },
 ]);
 
