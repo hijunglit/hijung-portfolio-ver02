@@ -24,16 +24,12 @@ const router = createBrowserRouter([
         errorElement: <ErrorComponent />,
       },
       {
-        path: "about",
-        element: <About />,
-      },
-      {
         path: "projects",
         element: <Projects />,
       },
       {
-        path: "contact",
-        element: <Contact />,
+        path: "about",
+        element: <About />,
       },
     ],
     errorElement: <NotFound />,
