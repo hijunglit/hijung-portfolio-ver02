@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
-import projects from "../data/projects.json";
+import projectList from "../data/projectList.json";
 function Projects() {
   return (
     <>
       <h1>Projects!</h1>
       <ul>
-        {projects.projects.map((project) => (
+        {projectList.projects.map((project) => (
           <li key={project.id}>
             <p>{project.title}</p>
             <div
@@ -18,7 +18,7 @@ function Projects() {
                 backgroundRepeat: "no-repeat",
               }}
             ></div>
-            <Link to={`detail/${project.id}`}>more...</Link>
+            <Link to={`${project.title}`}>more...</Link>
           </li>
         ))}
       </ul>
