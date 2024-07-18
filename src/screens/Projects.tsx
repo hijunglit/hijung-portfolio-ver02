@@ -1,9 +1,22 @@
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import projectList from "../data/projectList.json";
 function Projects() {
   return (
-    <>
-      <h1>Projects!</h1>
+    <motion.article
+      initial='hidden'
+      animate='visible'
+      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+    >
+      <motion.h1
+        style={{ x: "-50%" }}
+        variants={{
+          hidden: { opacity: 0, y: -20 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+        }}
+      >
+        Projects
+      </motion.h1>
       <ul>
         {projectList.projects.map((project) => (
           <li key={project.id}>
@@ -22,7 +35,10 @@ function Projects() {
           </li>
         ))}
       </ul>
-    </>
+      <footer>
+        <Link to={"/"}>Back to home</Link>
+      </footer>
+    </motion.article>
   );
 }
 
