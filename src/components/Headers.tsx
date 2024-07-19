@@ -1,19 +1,12 @@
 import { Link } from "react-router-dom";
+import styled from "styled-components";
 
+const Title = styled.h1``;
 function Header() {
+  const title = "Project";
   return (
     <header>
-      <ul>
-        <li>
-          <Link to={"/"}>Home</Link>
-        </li>
-        <li>
-          <Link to={"/project"}>Projects</Link>
-        </li>
-        <li>
-          <Link to={"/about"}>About</Link>
-        </li>
-      </ul>
+      <Title>{title}</Title>
     </header>
   );
 }

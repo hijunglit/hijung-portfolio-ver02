@@ -1,38 +1,53 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import projectList from "../data/projectList.json";
-function Projects() {
+import styled from "styled-components";
+import Image from "../components/Image";
+
+interface IProps {
+  id: number;
+  title: string;
+  img: string;
+}
+
+const Title = styled(motion.h1)`
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  margin: 100px 0;
+  white-space: nowrap;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+const visible = { opacity: 1, y: 0, transition: { duration: 1 } };
+
+function Projects({ id, title, img }: IProps) {
+  const pageTitle = "Projects";
   return (
     <motion.article
       initial='hidden'
       animate='visible'
       exit={{ opacity: 0, transition: { duration: 0.5 } }}
     >
-      <motion.h1
-        style={{ x: "-50%" }}
+      <Title
+        style={{ x: "-50%" } as any}
         variants={{
           hidden: { opacity: 0, y: -20 },
           visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
         }}
       >
-        Projects
-      </motion.h1>
+        {pageTitle}
+      </Title>
       <ul>
         {projectList.projects.map((project) => (
-          <li key={project.id}>
-            <p>{project.title}</p>
-            <div
-              style={{
-                width: "500px",
-                height: "400px",
-                backgroundImage: `url(${project.img})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
-              }}
-            ></div>
-            <Link to={`${project.title}`}>more...</Link>
-          </li>
+          <Image
+            key={project.id}
+            id={project.id}
+            title={project.title}
+            img={project.img}
+          />
         ))}
       </ul>
       <footer>

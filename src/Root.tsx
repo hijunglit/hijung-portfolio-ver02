@@ -1,7 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-import { Outlet, useLocation, useRoutes } from "react-router-dom";
-import Header from "./components/Headers";
-import { createGlobalStyle } from "styled-components";
+import { useLocation, useRoutes } from "react-router-dom";
 import Home from "./screens/Home";
 import ErrorComponent from "./components/ErrorComponent";
 import Projects from "./screens/Projects";
@@ -9,7 +7,12 @@ import Project from "./screens/Project";
 import About from "./screens/About";
 import React from "react";
 
-function Root() {
+interface IProps {
+  id: number;
+  title: string;
+  img: string;
+}
+function Root({ id, title, img }: IProps) {
   const element = useRoutes([
     {
       path: "/",
@@ -18,7 +21,7 @@ function Root() {
     },
     {
       path: "/project",
-      element: <Projects />,
+      element: <Projects id={id} title={title} img={img} />,
     },
     {
       path: "/project/:projectTitle",

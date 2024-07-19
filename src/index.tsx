@@ -5,6 +5,7 @@ import { darkTheme } from "./theme";
 import { BrowserRouter, RouterProvider } from "react-router-dom";
 import Root from "./Root";
 import Header from "./components/Headers";
+import projectList from "./data/projectList.json";
 const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
@@ -60,19 +61,39 @@ body {
   color: #ff0066;
   overflow-x: hidden;
 }
-
 a {
   color: #ff0066; 
 }
+::-webkit-scrollbar {
+  height: 5px;
+  width: 6px;
+  background: #fafafa;
+  -webkit-border-radius: 1ex;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ff0066;
+  -webkit-border-radius: 1ex;
+}
+
+::-webkit-scrollbar-corner {
+  background: #fff3;
+}
 
 `;
-function AppWithUi() {
+
+interface IProps {
+  id: number;
+  title: string;
+  img: string;
+}
+function AppWithUi({ id, title, img }: IProps) {
   return (
     <>
       <GlobalStyle />
       <BrowserRouter>
         {/* <Header /> */}
-        <Root />
+        <Root id={id} title={title} img={img} />
       </BrowserRouter>
     </>
   );
@@ -82,4 +103,4 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 
-root.render(<AppWithUi />);
+root.render(<AppWithUi id={1} title='' img='' />);
