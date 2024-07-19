@@ -2,7 +2,7 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import { Link } from "react-router-dom";
 import projectList from "../data/projectList.json";
 import styled from "styled-components";
-import Image from "../components/Image";
+import ProjectItem from "../components/ProjectItem";
 
 interface IProps {
   id: number;
@@ -10,6 +10,11 @@ interface IProps {
   img: string;
 }
 
+const Article = styled(motion.article)`
+  max-width: 990px;
+  flex: 1 1 100%;
+  padding: 45px 45px;
+`;
 const Title = styled(motion.h1)`
   font-size: 1.6rem;
   font-weight: 700;
@@ -21,15 +26,20 @@ const Title = styled(motion.h1)`
   left: 50%;
   transform: translateX(-50%);
 `;
-const visible = { opacity: 1, y: 0, transition: { duration: 1 } };
+const ProjectList = styled.ul`
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+`;
 
 function Projects({ id, title, img }: IProps) {
   const pageTitle = "Projects";
   return (
-    <motion.article
+    <Article
       initial='hidden'
       animate='visible'
-      exit={{ opacity: 0, transition: { duration: 0.5 } }}
+      exit={{ opacity: 0, transition: { duration: 1 } }}
+      variants={{ visible: { transition: { staggerChildren: 0.3 } } }}
     >
       <Title
         style={{ x: "-50%" } as any}
@@ -40,20 +50,20 @@ function Projects({ id, title, img }: IProps) {
       >
         {pageTitle}
       </Title>
-      <ul>
+      <ProjectList>
         {projectList.projects.map((project) => (
-          <Image
+          <ProjectItem
             key={project.id}
             id={project.id}
             title={project.title}
             img={project.img}
           />
         ))}
-      </ul>
+      </ProjectList>
       <footer>
         <Link to={"/"}>Back to home</Link>
       </footer>
-    </motion.article>
+    </Article>
   );
 }
 

@@ -61,6 +61,14 @@ body {
   color: #ff0066;
   overflow-x: hidden;
 }
+  #root {
+  display: flex;
+  justify-content: center;
+}
+
+* {
+  box-sizing: border-box;
+}
 a {
   color: #ff0066; 
 }
