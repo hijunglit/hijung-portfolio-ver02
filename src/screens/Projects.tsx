@@ -31,7 +31,6 @@ const ProjectList = styled.ul`
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
-  z-index: 9;
 `;
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -44,7 +43,6 @@ const Overlay = styled(motion.div)`
 `;
 const BigProject = styled(motion.div)`
   position: absolute;
-  z-index: 9;
   width: 40vw;
   height: 80vh;
   left: 0;
