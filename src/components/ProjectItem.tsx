@@ -21,6 +21,7 @@ const Item = styled(motion.li)<{ $ismobile: boolean; $isTablet: boolean }>`
     "0 0 40%"};
   max-width: ${(props) =>
     (props.$isTablet && "50%") || (props.$ismobile && "100%") || "40%"};
+  /************ (1, 5, 8, 13), (4, 8, 12, 16 ) *************/
   &:nth-child(4n + 1),
   &:nth-child(4n + 4) {
     flex: ${(props) =>
@@ -49,8 +50,7 @@ const itemVariants = {
   visible: { opacity: 1, y: 200, transition: { duration: 0.5 } },
 };
 function ProjectItem({ id, title, img }: IProps) {
-  const isDesktopOrLaptop: boolean = useMediaQuery({ minWidth: 1224 });
-  const isTablet: boolean = useMediaQuery({ maxWidth: 800 });
+  const isTablet: boolean = useMediaQuery({ minWidth: 600, maxWidth: 800 });
   const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   return (
     <Item

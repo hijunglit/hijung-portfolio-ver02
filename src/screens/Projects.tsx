@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const Article = styled(motion.article)`
-  max-width: 990px;
+  max-width: 1080px;
   flex: 1 1 100%;
   padding: 45px 45px;
 `;
