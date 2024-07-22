@@ -44,6 +44,14 @@ const ProjectList = styled.ul`
   flex-wrap: wrap;
   align-content: flex-start;
 `;
+const BottomSheet = styled.div``;
+const Handle = styled.div`
+  width: 32px;
+  height: 4px;
+  border-radius: 2px;
+  background-color: #d0d0d0;
+  margin: auto;
+`;
 const Overlay = styled(motion.div)`
   position: fixed;
   top: 0;
@@ -187,7 +195,7 @@ function Projects() {
           </AnimatePresence>
         </ProjectList>
         {bigProjectMatch ? (
-          <>
+          <BottomSheet>
             <Overlay
               onClick={onOverlayClick}
               exit={{ opacity: 0 }}
@@ -198,6 +206,8 @@ function Projects() {
               $istablet={isTablet}
               style={{ top: scrollY.get() + 100 }}
               layoutId={bigProjectMatch.params.projectId}
+              drag='y'
+              dragConstraints={{ left: 0, right: 0, top: 100, bottom: 100 }}
             >
               {clickedProject && (
                 <>
@@ -209,7 +219,7 @@ function Projects() {
                 </>
               )}
             </BigProject>
-          </>
+          </BottomSheet>
         ) : null}
         <footer>
           <Link to={"/"}>Back to home</Link>
