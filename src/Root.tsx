@@ -1,12 +1,8 @@
-import { AnimatePresence } from "framer-motion";
-import { Outlet, useLocation, useRoutes } from "react-router-dom";
-import Home from "./screens/Home";
-import ErrorComponent from "./components/ErrorComponent";
-import Projects from "./screens/Projects";
-import Project from "./screens/Project";
-import About from "./screens/About";
-import React from "react";
-import { createGlobalStyle } from "styled-components";
+import { Outlet } from "react-router-dom";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { useRecoilValue } from "recoil";
+import { isDarkAtom } from "./atoms";
+import { darkTheme, lightTheme } from "./theme";
 import Header from "./components/Headers";
 
 const GlobalStyle = createGlobalStyle`
@@ -60,25 +56,25 @@ table {
 }
 /*************************** reset css ***************************/
 body {
-  background-color: #fafafa;
-  color: #ff0066;
+  background-color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   overflow-x: hidden;
 }
 * {
   box-sizing: border-box;
 }
 a {
-  color: #ff0066; 
+  color: ${(props) => props.theme.textColor}; 
 }
 ::-webkit-scrollbar {
   height: 5px;
-  width: 6px;
-  background: #fafafa;
+  width: 7px;
+  background: ${(props) => props.theme.bgColor};
   -webkit-border-radius: 1ex;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #ff0066;
+  background: ${(props) => props.theme.textColor};
   -webkit-border-radius: 1ex;
 }
 
@@ -89,10 +85,14 @@ a {
 `;
 
 function Root() {
+  const isDark = useRecoilValue(isDarkAtom);
   return (
     <>
-      <GlobalStyle />
-      <Outlet context={{ darkMode: true }} />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <GlobalStyle />
+        <Header />
+        <Outlet />
+      </ThemeProvider>
     </>
   );
 }

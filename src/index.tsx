@@ -1,20 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { darkTheme } from "./theme";
-import { BrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 import Root from "./Root";
-import Header from "./components/Headers";
-import projectList from "./data/projectList.json";
-import router from "./Router";
+import Project from "./screens/Project";
+import Projects from "./screens/Projects";
+import About from "./screens/About";
+import Home from "./screens/Home";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={darkTheme}>
-      <RouterProvider router={router} />
-    </ThemeProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <RecoilRoot>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Root />}>
+          <Route path='' element={<Home />} />
+          <Route path='project' element={<Projects />} />
+          <Route path='project/:projectId' element={<Projects />} />
+          <Route path='project/:projectTitle' element={<Project />} />
+          <Route path='about' element={<About />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </RecoilRoot>
+  // </React.StrictMode>
 );

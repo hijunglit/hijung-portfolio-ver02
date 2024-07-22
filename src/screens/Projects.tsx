@@ -17,15 +17,27 @@ const Article = styled(motion.article)`
   padding: 45px 45px;
   margin: 0 auto;
 `;
+const PageTitle = styled(motion.h1)`
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  position: relative;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 12px;
+`;
 const Title = styled(motion.h1)`
   font-size: 1.6rem;
   font-weight: 700;
   line-height: 1.2;
-  text-align: center;
+  text-align: left;
   white-space: nowrap;
   position: relative;
   left: 50%;
   transform: translateX(-50%);
+  padding: 8px 12px;
 `;
 const ProjectList = styled.ul`
   display: flex;
@@ -41,35 +53,43 @@ const Overlay = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
 `;
-const BigProject = styled(motion.div)`
+const BigProject = styled(motion.div)<{
+  $ismobile: boolean;
+  $istablet: boolean;
+}>`
   position: absolute;
-  width: 40vw;
-  height: 80vh;
+  max-width: 800px;
+  width: 100%;
+  height: ${(props) => (props.$ismobile || props.$istablet ? "100%" : "80vh")};
   left: 0;
   right: 0;
   margin: 0 auto;
   border-radius: 15px !important;
-  overflow: hidden;
-  background-color: #000;
+  background-color: ${(props) => props.theme.cardBgColor};
 `;
 const BigCover = styled.div`
   width: 100%;
   background-size: cover;
   background-position: center center;
   height: 400px;
+  border-radius: 15px 15px 0 0;
 `;
 const BigTitle = styled.h3`
   color: #fff;
   padding: 20px;
   font-size: 46px;
-  positon: relative;
-  top: -80px;
+  float: left;
+  font-size: 2em;
+  font-weight: 700;
 `;
-const BigOverview = styled.p`
+const BigOverview = styled(motion.div)`
   padding: 20px;
-  position: relative;
-  top: -80px;
   color: #fff;
+  font-size: 20px;
+  line-height: 1.4em;
+  height: auto;
+  background-color: ${(props) => props.theme.cardBgColor};
+  border-radius: 0 0 15px 15px;
 `;
 const ProjectItem = styled.li<{ $ismobile: boolean; $isTablet: boolean }>`
   position: relative;
@@ -129,7 +149,7 @@ function Projects() {
       // exit={{ opacity: 0, transition: { duration: 1 } }}
       // variants={{ visible: { transition: { staggerChildren: 0.3 } } }}
       >
-        <Title
+        <PageTitle
           style={{ x: "-50%" } as any}
           variants={{
             hidden: { opacity: 0, y: -20 },
@@ -137,7 +157,7 @@ function Projects() {
           }}
         >
           {pageTitle}
-        </Title>
+        </PageTitle>
         <ProjectList>
           <AnimatePresence>
             {projectList.projects.map((project) => (
@@ -152,7 +172,7 @@ function Projects() {
                   style={{
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "#000",
+                    backgroundColor: project.mainColor,
                     backgroundImage: `url(${project.img})`,
                     backgroundSize: "cover",
                     backgroundPosition: "center center",
@@ -174,15 +194,18 @@ function Projects() {
               animate={{ opacity: 1 }}
             />
             <BigProject
+              $ismobile={isMobile}
+              $istablet={isTablet}
               style={{ top: scrollY.get() + 100 }}
               layoutId={bigProjectMatch.params.projectId}
             >
               {clickedProject && (
                 <>
+                  <BigTitle>{clickedProject.title}</BigTitle>
                   <BigCover
                     style={{ backgroundImage: `url(${clickedProject.img})` }}
                   />
-                  <BigTitle>{clickedProject.title}</BigTitle>
+                  <BigOverview>{clickedProject.description}</BigOverview>
                 </>
               )}
             </BigProject>
