@@ -1,8 +1,17 @@
-import { motion, AnimatePresence, useScroll } from "framer-motion";
+import {
+  motion,
+  AnimatePresence,
+  useScroll,
+  useMotionValue,
+} from "framer-motion";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import projectList from "../data/projectList.json";
 import styled from "styled-components";
+import { BOTTOM_SHEET_HEIGHT } from "../config/constants";
 import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
+import { useRecoilState } from "recoil";
+import { isSelectedAtom } from "../atoms";
 
 interface IProps {
   id: number;
@@ -64,11 +73,14 @@ const Overlay = styled(motion.div)`
 const BigProject = styled(motion.div)<{
   $ismobile: boolean;
   $istablet: boolean;
+  $isDesktop: boolean;
 }>`
   position: absolute;
   max-width: 800px;
   width: 100%;
-  height: ${(props) => (props.$ismobile || props.$istablet ? "100%" : "80vh")};
+  height: ${(props) =>
+    (props.$ismobile && `${BOTTOM_SHEET_HEIGHT}px`) ||
+    ((props.$istablet || props.$isDesktop) && "80vh")};
   left: 0;
   right: 0;
   margin: 0 auto;
@@ -133,22 +145,30 @@ const ImageBox = styled(motion.div)`
 `;
 
 function Projects() {
+  const pageTitle = "Projects";
+  const isDesktop: boolean = useMediaQuery({ minWidth: 800 });
   const isTablet: boolean = useMediaQuery({ minWidth: 600, maxWidth: 800 });
   const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   const history = useNavigate();
   const bigProjectMatch = useMatch("/project/:projectId");
   const { scrollY } = useScroll();
   const onBoxClicked = (projectId: number) => {
+    setIsSelected(true);
     history(`/project/${projectId}`);
   };
-  const onOverlayClick = () => history("/project");
+  const onOverlayClick = () => {
+    setIsSelected(false);
+    history("/project");
+  };
   const clickedProject =
     bigProjectMatch?.params.projectId &&
     projectList.projects.find(
       (project) =>
         String(project.id) === String(bigProjectMatch.params.projectId)
     );
-  const pageTitle = "Projects";
+  const [isSelected, setIsSelected] = useRecoilState(isSelectedAtom);
+  const animateState = isSelected ? "opened" : "closed";
+  console.log(isSelected);
   return (
     <Container>
       <Article
@@ -204,10 +224,29 @@ function Projects() {
             <BigProject
               $ismobile={isMobile}
               $istablet={isTablet}
+              $isDesktop={isDesktop}
               style={{ top: scrollY.get() + 100 }}
+              animate={animateState}
               layoutId={bigProjectMatch.params.projectId}
-              drag='y'
-              dragConstraints={{ left: 0, right: 0, top: 100, bottom: 100 }}
+              drag={isSelected ? "y" : false}
+              onDragEnd={(event, info) => {
+                console.log("info.offset.y", info.offset.y);
+                console.log("info.point.y", info.point.y);
+                console.log("info.delta.y", info.delta.y);
+                const offsetThreshold = 150;
+                const deltaThreshold = 5;
+                const isOverOffsetThreshold =
+                  Math.abs(info.offset.y) > offsetThreshold;
+                const isOverDeltaThreshold = Math.abs(info.delta.y);
+                const isOverThreshold =
+                  isOverOffsetThreshold || isOverDeltaThreshold;
+                if (!isOverThreshold) return;
+                const newIsSelected = info.offset.y < 0;
+                setIsSelected(newIsSelected);
+                isSelected && onOverlayClick();
+              }}
+              dragConstraints={{ top: 0, bottom: 0 }}
+              dragElastic
             >
               {clickedProject && (
                 <>
