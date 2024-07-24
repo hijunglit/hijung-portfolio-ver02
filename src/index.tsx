@@ -20,7 +20,7 @@ root.render(
           <Route path='' element={<Home />} />
           <Route path='project' element={<Projects />} />
           <Route path='project/:projectId' element={<Projects />} />
-          <Route path='project/:projectTitle' element={<Project />} />
+          <Route path='projects/:projectTitle' element={<Project />} />
           <Route path='about' element={<About />} />
         </Route>
       </Routes>

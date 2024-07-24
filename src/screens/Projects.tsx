@@ -1,29 +1,22 @@
-import {
-  motion,
-  AnimatePresence,
-  useScroll,
-  useMotionValue,
-} from "framer-motion";
+import { motion, AnimatePresence, useScroll } from "framer-motion";
 import { Link, useMatch, useNavigate } from "react-router-dom";
 import projectList from "../data/projectList.json";
 import styled from "styled-components";
 import { BOTTOM_SHEET_HEIGHT } from "../config/constants";
 import { useMediaQuery } from "react-responsive";
-import { useState } from "react";
+import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { isSelectedAtom } from "../atoms";
+import { useScrollConstraints } from "../utils/use-scroll-constraints";
 
-interface IProps {
-  id: number;
-  title: string;
-  img: string;
-}
-
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  justify-content: center;
+`;
 const Article = styled(motion.article)`
   max-width: 1080px;
   flex: 1 1 100%;
-  padding: 45px 45px;
+  padding: 45px 25px;
   margin: 0 auto;
 `;
 const PageTitle = styled(motion.h1)`
@@ -54,13 +47,6 @@ const ProjectList = styled.ul`
   align-content: flex-start;
 `;
 const BottomSheet = styled.div``;
-const Handle = styled.div`
-  width: 32px;
-  height: 4px;
-  border-radius: 2px;
-  background-color: #d0d0d0;
-  margin: auto;
-`;
 const Overlay = styled(motion.div)`
   position: fixed;
   top: 0;
@@ -103,13 +89,43 @@ const BigTitle = styled.h3`
   font-weight: 700;
 `;
 const BigOverview = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: 3em;
   padding: 20px;
   color: #fff;
-  font-size: 20px;
-  line-height: 1.4em;
+  font-size: 16px;
+  line-height: 20px;
   height: auto;
   background-color: ${(props) => props.theme.cardBgColor};
   border-radius: 0 0 15px 15px;
+  &:a {
+    text-decoration: none;
+  }
+`;
+const BigOverviewItem = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1.4em;
+`;
+const BigOverviewTitle = styled.h3`
+  font-size: 1.4em;
+  font-weight: 600;
+`;
+const BigOverviewCategoryItem = styled.span`
+  background: #fff;
+  color: #000;
+  padding: 4px 6px;
+  border-radius: 8px;
+`;
+const ProjectLink = styled.a`
+  text-decoration: none;
+  padding: 8px 12px;
+  border: 2px solid #fff;
+  border-radius: 16px;
+  &:first-child {
+    margin-right: 12px;
+  }
 `;
 const ProjectItem = styled.li<{ $ismobile: boolean; $isTablet: boolean }>`
   position: relative;
@@ -167,8 +183,9 @@ function Projects() {
         String(project.id) === String(bigProjectMatch.params.projectId)
     );
   const [isSelected, setIsSelected] = useRecoilState(isSelectedAtom);
+  const cardRef = useRef(null);
+  const constraints = useScrollConstraints(cardRef, isSelected);
   const animateState = isSelected ? "opened" : "closed";
-  console.log(isSelected);
   return (
     <Container>
       <Article
@@ -208,7 +225,7 @@ function Projects() {
                     borderRadius: "16px",
                   }}
                 >
-                  <Title>{project.title}</Title>
+                  <Title>{project.name}</Title>
                 </ImageBox>
               </ProjectItem>
             ))}
@@ -222,30 +239,24 @@ function Projects() {
               animate={{ opacity: 1 }}
             />
             <BigProject
+              ref={cardRef}
               $ismobile={isMobile}
               $istablet={isTablet}
               $isDesktop={isDesktop}
-              style={{ top: scrollY.get() + 100 }}
+              style={{ top: scrollY.get() + 50 }}
               animate={animateState}
               layoutId={bigProjectMatch.params.projectId}
               drag={isSelected ? "y" : false}
-              onDragEnd={(event, info) => {
-                console.log("info.offset.y", info.offset.y);
-                console.log("info.point.y", info.point.y);
-                console.log("info.delta.y", info.delta.y);
-                const offsetThreshold = 150;
-                const deltaThreshold = 5;
+              onDrag={(event, info) => {
+                const offsetThreshold = 400;
                 const isOverOffsetThreshold =
                   Math.abs(info.offset.y) > offsetThreshold;
-                const isOverDeltaThreshold = Math.abs(info.delta.y);
-                const isOverThreshold =
-                  isOverOffsetThreshold || isOverDeltaThreshold;
-                if (!isOverThreshold) return;
+                if (!isOverOffsetThreshold) return;
                 const newIsSelected = info.offset.y < 0;
                 setIsSelected(newIsSelected);
                 isSelected && onOverlayClick();
               }}
-              dragConstraints={{ top: 0, bottom: 0 }}
+              dragConstraints={constraints}
               dragElastic
             >
               {clickedProject && (
@@ -254,7 +265,68 @@ function Projects() {
                   <BigCover
                     style={{ backgroundImage: `url(${clickedProject.img})` }}
                   />
-                  <BigOverview>{clickedProject.description}</BigOverview>
+                  <BigOverview>
+                    <BigOverviewItem>
+                      <BigOverviewTitle>기술 스택</BigOverviewTitle>
+                      <p
+                        style={{
+                          display: "flex",
+                          justifyContent: "start",
+                          flexWrap: "wrap",
+                          gap: "5px",
+                        }}
+                      >
+                        {clickedProject.skills.map((skill, index) => (
+                          <BigOverviewCategoryItem key={skill + index + ""}>
+                            {skill}
+                          </BigOverviewCategoryItem>
+                        ))}
+                      </p>
+                    </BigOverviewItem>
+                    <BigOverviewItem>
+                      <BigOverviewTitle>요약</BigOverviewTitle>
+                      <p>{clickedProject.overview.summary}</p>
+                    </BigOverviewItem>
+                    <BigOverviewItem>
+                      <BigOverviewTitle>주요 기능</BigOverviewTitle>
+                      <p
+                        style={{
+                          display: "flex",
+                          justifyContent: "start",
+                          flexWrap: "wrap",
+                          gap: "5px",
+                        }}
+                      >
+                        {clickedProject.features.map((feature, index) => (
+                          <BigOverviewCategoryItem key={feature + index + ""}>
+                            {feature}
+                          </BigOverviewCategoryItem>
+                        ))}
+                      </p>
+                    </BigOverviewItem>
+                    <BigOverviewItem>
+                      <BigOverviewTitle>링크</BigOverviewTitle>
+                      <div>
+                        <ProjectLink
+                          href={clickedProject.link.github}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          Github&rarr;
+                        </ProjectLink>
+                        <ProjectLink
+                          href={clickedProject.link.project}
+                          target='_blank'
+                          rel='noopener noreferrer'
+                        >
+                          Web&rarr;
+                        </ProjectLink>
+                      </div>
+                    </BigOverviewItem>
+                    <Link to={`/projects/${clickedProject.title}`}>
+                      자세히...
+                    </Link>
+                  </BigOverview>
                 </>
               )}
             </BigProject>

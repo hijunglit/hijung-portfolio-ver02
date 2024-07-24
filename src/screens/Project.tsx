@@ -11,7 +11,7 @@ function Project() {
       {project && (
         <>
           <h1>{project.name}</h1>
-          <p>{project.description}</p>
+          <p>{project.overview.summary}</p>
           <small>{project.features}</small>
           <div
             style={{
