@@ -63,7 +63,7 @@ function Home() {
       </Title>
       <Nav style={{}}>
         <NanList variants={itemVariants}>
-          <Link to='/project'>Project</Link>
+          <Link to='/projects'>Project</Link>
         </NanList>
         <NanList variants={itemVariants}>
           <Link to='/about'>About</Link>

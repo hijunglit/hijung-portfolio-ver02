@@ -166,15 +166,15 @@ function Projects() {
   const isTablet: boolean = useMediaQuery({ minWidth: 600, maxWidth: 800 });
   const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   const history = useNavigate();
-  const bigProjectMatch = useMatch("/project/:projectId");
+  const bigProjectMatch = useMatch("/projects/:projectId");
   const { scrollY } = useScroll();
   const onBoxClicked = (projectId: number) => {
     setIsSelected(true);
-    history(`/project/${projectId}`);
+    history(`/projects/${projectId}`);
   };
   const onOverlayClick = () => {
     setIsSelected(false);
-    history("/project");
+    history("/projects");
   };
   const clickedProject =
     bigProjectMatch?.params.projectId &&
@@ -323,7 +323,7 @@ function Projects() {
                         </ProjectLink>
                       </div>
                     </BigOverviewItem>
-                    <Link to={`/projects/${clickedProject.title}`}>
+                    <Link to={`/project/${clickedProject.title}`}>
                       자세히...
                     </Link>
                   </BigOverview>
