@@ -16,7 +16,7 @@ const Container = styled.div`
 const Article = styled(motion.article)`
   max-width: 1080px;
   flex: 1 1 100%;
-  padding: 45px 25px;
+  padding: 45px 15px;
   margin: 0 auto;
 `;
 const PageTitle = styled(motion.h1)`
