@@ -1,13 +1,16 @@
 import { useParams } from "react-router-dom";
 import projectList from "../data/projectList.json";
 import styled from "styled-components";
-import { library } from "@fortawesome/fontawesome-svg-core";
+import { useMediaQuery } from "react-responsive";
 
 const Container = styled.div`
   padding: 55px 15px;
   display: flex;
   flex-direction: column;
   gap: 50px;
+  width: 100%;
+  max-width: 990px;
+  margin: 0 auto;
 `;
 const ProjectHeader = styled.div`
   div {
@@ -18,9 +21,10 @@ const ProjectItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  align-items: center;
 `;
 const Title = styled.h1`
-  font-size: 1.4em;
+  font-size: 1.6em;
   font-weight: 600;
 `;
 const ProjectLinks = styled.div`
@@ -31,8 +35,46 @@ const ProjectLinks = styled.div`
 const Summary = styled.p`
   line-height: 20px;
 `;
+const Features = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+`;
+const Feature = styled.li<{
+  $istablet: boolean;
+  $isDesktop: boolean;
+  $ismobile: boolean;
+}>`
+  display: flex;
+  flex-direction: ${(props) =>
+    props.$ismobile || props.$istablet ? "column" : "row-reverse"};
+  gap: 50px;
+`;
+const FeatureTitle = styled.h3`
+  font-size: 1.4em;
+  font-weight: 600;
+  text-align: center;
+`;
+const FeatureDescription = styled.p`
+  text-align: left;
+  flex: 1 1 100%;
+`;
+const Img = styled.img`
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+`;
+const Skills = styled.div``;
+const SkillList = styled.ul``;
+const Skill = styled.li``;
+const SkillName = styled.p``;
+const SKillWhy = styled.p``;
+const TroubleShootings = styled.div``;
 
 function Project() {
+  const isDesktop: boolean = useMediaQuery({ minWidth: 800 });
+  const isTablet: boolean = useMediaQuery({ minWidth: 600, maxWidth: 800 });
+  const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   const { projectTitle } = useParams();
   const project = projectList.projects.find(
     (project) => project.title === projectTitle
@@ -63,9 +105,9 @@ function Project() {
               <Summary>{project.overview.summary}</Summary>
               <div
                 style={{
-                  maxWidth: "990px",
+                  maxWidth: "1080px",
                   width: "100%",
-                  height: "250px",
+                  height: "300px",
                   backgroundImage: `url(${project.img})`,
                   backgroundSize: "cover",
                   backgroundPosition: "cover",
@@ -75,14 +117,63 @@ function Project() {
           </ProjectHeader>
           <ProjectItem>
             <Title>구현한 기능</Title>
-            <ul>
+            <Features>
               {project.detail.imgMaterial.map((item, index) => (
-                <li key={index}>
-                  <img src={item.src} alt='img' />
-                  <p>{item.desc}</p>
-                </li>
+                <Feature
+                  key={index}
+                  $ismobile={isMobile}
+                  $istablet={isTablet}
+                  $isDesktop={isDesktop}
+                >
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "20px",
+                    }}
+                  >
+                    <FeatureTitle>{item.title}</FeatureTitle>
+                    <FeatureDescription>{item.desc}</FeatureDescription>
+                  </div>
+                  <Img src={item.src} alt='img' />
+                </Feature>
               ))}
-            </ul>
+            </Features>
+          </ProjectItem>
+          <ProjectItem>
+            <Title>Skills</Title>
+            <Skills>
+              <SkillList>
+                {project.detail.skills.map((skill, index) => (
+                  <Skill
+                    key={skill.name + index + ""}
+                    style={{
+                      display: "flex",
+                      gap: "8px",
+                    }}
+                  >
+                    <SkillName>{skill.name}</SkillName>
+                    <span>:</span>
+                    <SKillWhy>{skill.why}</SKillWhy>
+                  </Skill>
+                ))}
+              </SkillList>
+            </Skills>
+          </ProjectItem>
+          <ProjectItem>
+            <Title>Trouble shootings</Title>
+            <TroubleShootings>
+              <ul>
+                {project.detail.troubleShooting.map((item, index) => (
+                  <li>
+                    <p>{item.background}</p>
+                    <p>{item.solution}</p>
+                    <p>{item.beforeAfter}</p>
+                    <p>{item.learn}</p>
+                  </li>
+                ))}
+              </ul>
+            </TroubleShootings>
           </ProjectItem>
         </>
       )}

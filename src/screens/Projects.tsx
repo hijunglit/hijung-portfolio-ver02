@@ -276,9 +276,11 @@ function Projects() {
                           gap: "5px",
                         }}
                       >
-                        {clickedProject.skills.map((skill, index) => (
-                          <BigOverviewCategoryItem key={skill + index + ""}>
-                            {skill}
+                        {clickedProject.detail.skills.map((skill, index) => (
+                          <BigOverviewCategoryItem
+                            key={skill.name + index + ""}
+                          >
+                            {skill.name}
                           </BigOverviewCategoryItem>
                         ))}
                       </p>
@@ -297,7 +299,7 @@ function Projects() {
                           gap: "5px",
                         }}
                       >
-                        {clickedProject.features.map((feature, index) => (
+                        {clickedProject.mainFeatures.map((feature, index) => (
                           <BigOverviewCategoryItem key={feature + index + ""}>
                             {feature}
                           </BigOverviewCategoryItem>
