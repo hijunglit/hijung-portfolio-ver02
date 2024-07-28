@@ -166,10 +166,22 @@ function Project() {
               <ul>
                 {project.detail.troubleShooting.map((item, index) => (
                   <li>
-                    <p>{item.background}</p>
-                    <p>{item.solution}</p>
-                    <p>{item.beforeAfter}</p>
-                    <p>{item.learn}</p>
+                    <div>
+                      <h3>문제 배경</h3>
+                      <p>{item.background}</p>
+                    </div>
+                    <div>
+                      <h3>해결 방법</h3>
+                      <p>{item.solution}</p>
+                    </div>
+                    <div>
+                      <h3>이전 코드와 비교</h3>
+                      <p>{item.beforeAfter}</p>
+                    </div>
+                    <div>
+                      <h3>문제를 통해 알게된 점</h3>
+                      <p>{item.learn}</p>
+                    </div>
                   </li>
                 ))}
               </ul>
