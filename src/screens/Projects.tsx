@@ -9,7 +9,7 @@ import { useRecoilState } from "recoil";
 import { isSelectedAtom } from "../atoms";
 import { useScrollConstraints } from "../utils/use-scroll-constraints";
 
-const Container = styled.div`
+const Container = styled(motion.div)`
   display: flex;
   justify-content: center;
 `;
@@ -187,158 +187,166 @@ function Projects() {
   const constraints = useScrollConstraints(cardRef, isSelected);
   const animateState = isSelected ? "opened" : "closed";
   return (
-    <Container>
-      <Article
-      // initial='hidden'
-      // animate='visible'
-      // exit={{ opacity: 0, transition: { duration: 1 } }}
-      // variants={{ visible: { transition: { staggerChildren: 0.3 } } }}
+    <AnimatePresence>
+      <Container
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+        exit={{ opacity: 0 }}
       >
-        <PageTitle
-          style={{ x: "-50%" } as any}
-          variants={{
-            hidden: { opacity: 0, y: -20 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-          }}
+        <Article
+        // initial='hidden'
+        // animate='visible'
+        // exit={{ opacity: 0, transition: { duration: 1 } }}
+        // variants={{ visible: { transition: { staggerChildren: 0.3 } } }}
         >
-          {pageTitle}
-        </PageTitle>
-        <ProjectList>
-          <AnimatePresence>
-            {projectList.projects.map((project) => (
-              <ProjectItem
-                key={project.id}
-                $ismobile={isMobile}
-                $isTablet={isTablet}
-              >
-                <ImageBox
-                  layoutId={project.id + ""}
-                  onClick={() => onBoxClicked(project.id)}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: project.mainColor,
-                    backgroundImage: `url(${project.img})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center center",
-                    backgroundRepeat: "no-repeat",
-                    borderRadius: "16px",
-                  }}
+          <PageTitle
+            style={{ x: "-50%" } as any}
+            variants={{
+              hidden: { opacity: 0, y: -20 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+            }}
+          >
+            {pageTitle}
+          </PageTitle>
+          <ProjectList>
+            <AnimatePresence>
+              {projectList.projects.map((project) => (
+                <ProjectItem
+                  key={project.id}
+                  $ismobile={isMobile}
+                  $isTablet={isTablet}
                 >
-                  <Title>{project.name}</Title>
-                </ImageBox>
-              </ProjectItem>
-            ))}
-          </AnimatePresence>
-        </ProjectList>
-        {bigProjectMatch ? (
-          <BottomSheet>
-            <Overlay
-              onClick={onOverlayClick}
-              exit={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-            />
-            <BigProject
-              ref={cardRef}
-              $ismobile={isMobile}
-              $istablet={isTablet}
-              $isDesktop={isDesktop}
-              style={{ top: scrollY.get() + 50 }}
-              animate={animateState}
-              layoutId={bigProjectMatch.params.projectId}
-              drag={isSelected ? "y" : false}
-              onDrag={(event, info) => {
-                const offsetThreshold = 400;
-                const isOverOffsetThreshold =
-                  Math.abs(info.offset.y) > offsetThreshold;
-                if (!isOverOffsetThreshold) return;
-                const newIsSelected = info.offset.y < 0;
-                setIsSelected(newIsSelected);
-                isSelected && onOverlayClick();
-              }}
-              dragConstraints={constraints}
-              dragElastic
-            >
-              {clickedProject && (
-                <>
-                  <BigTitle>{clickedProject.title}</BigTitle>
-                  <BigCover
-                    style={{ backgroundImage: `url(${clickedProject.img})` }}
-                  />
-                  <BigOverview>
-                    <BigOverviewItem>
-                      <BigOverviewTitle>기술 스택</BigOverviewTitle>
-                      <p
-                        style={{
-                          display: "flex",
-                          justifyContent: "start",
-                          flexWrap: "wrap",
-                          gap: "5px",
-                        }}
-                      >
-                        {clickedProject.detail.skills.map((skill, index) => (
-                          <BigOverviewCategoryItem
-                            key={skill.name + index + ""}
+                  <ImageBox
+                    layoutId={project.id + ""}
+                    onClick={() => onBoxClicked(project.id)}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      backgroundColor: project.mainColor,
+                      backgroundImage: `url(${project.img})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center center",
+                      backgroundRepeat: "no-repeat",
+                      borderRadius: "16px",
+                      boxShadow: "1px 1px 1px 1px rgba(0,0,0,0.2)",
+                    }}
+                  >
+                    <Title>{project.name}</Title>
+                  </ImageBox>
+                </ProjectItem>
+              ))}
+            </AnimatePresence>
+          </ProjectList>
+          {bigProjectMatch ? (
+            <BottomSheet>
+              <Overlay
+                onClick={onOverlayClick}
+                exit={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              />
+              <BigProject
+                ref={cardRef}
+                $ismobile={isMobile}
+                $istablet={isTablet}
+                $isDesktop={isDesktop}
+                style={{ top: scrollY.get() + 50 }}
+                animate={animateState}
+                layoutId={bigProjectMatch.params.projectId}
+                drag={isSelected ? "y" : false}
+                onDrag={(event, info) => {
+                  const offsetThreshold = 400;
+                  const isOverOffsetThreshold =
+                    Math.abs(info.offset.y) > offsetThreshold;
+                  if (!isOverOffsetThreshold) return;
+                  const newIsSelected = info.offset.y < 0;
+                  setIsSelected(newIsSelected);
+                  isSelected && onOverlayClick();
+                }}
+                dragConstraints={constraints}
+                dragElastic
+              >
+                {clickedProject && (
+                  <>
+                    <BigTitle>{clickedProject.title}</BigTitle>
+                    <BigCover
+                      style={{ backgroundImage: `url(${clickedProject.img})` }}
+                    />
+                    <BigOverview>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>기술 스택</BigOverviewTitle>
+                        <p
+                          style={{
+                            display: "flex",
+                            justifyContent: "start",
+                            flexWrap: "wrap",
+                            gap: "5px",
+                          }}
+                        >
+                          {clickedProject.detail.skills.map((skill, index) => (
+                            <BigOverviewCategoryItem
+                              key={skill.name + index + ""}
+                            >
+                              {skill.name}
+                            </BigOverviewCategoryItem>
+                          ))}
+                        </p>
+                      </BigOverviewItem>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>요약</BigOverviewTitle>
+                        <p>{clickedProject.overview.summary}</p>
+                      </BigOverviewItem>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>주요 기능</BigOverviewTitle>
+                        <p
+                          style={{
+                            display: "flex",
+                            justifyContent: "start",
+                            flexWrap: "wrap",
+                            gap: "5px",
+                          }}
+                        >
+                          {clickedProject.mainFeatures.map((feature, index) => (
+                            <BigOverviewCategoryItem key={feature + index + ""}>
+                              {feature}
+                            </BigOverviewCategoryItem>
+                          ))}
+                        </p>
+                      </BigOverviewItem>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>링크</BigOverviewTitle>
+                        <div>
+                          <ProjectLink
+                            href={clickedProject.link.github}
+                            target='_blank'
+                            rel='noopener noreferrer'
                           >
-                            {skill.name}
-                          </BigOverviewCategoryItem>
-                        ))}
-                      </p>
-                    </BigOverviewItem>
-                    <BigOverviewItem>
-                      <BigOverviewTitle>요약</BigOverviewTitle>
-                      <p>{clickedProject.overview.summary}</p>
-                    </BigOverviewItem>
-                    <BigOverviewItem>
-                      <BigOverviewTitle>주요 기능</BigOverviewTitle>
-                      <p
-                        style={{
-                          display: "flex",
-                          justifyContent: "start",
-                          flexWrap: "wrap",
-                          gap: "5px",
-                        }}
-                      >
-                        {clickedProject.mainFeatures.map((feature, index) => (
-                          <BigOverviewCategoryItem key={feature + index + ""}>
-                            {feature}
-                          </BigOverviewCategoryItem>
-                        ))}
-                      </p>
-                    </BigOverviewItem>
-                    <BigOverviewItem>
-                      <BigOverviewTitle>링크</BigOverviewTitle>
-                      <div>
-                        <ProjectLink
-                          href={clickedProject.link.github}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          Github&rarr;
-                        </ProjectLink>
-                        <ProjectLink
-                          href={clickedProject.link.project}
-                          target='_blank'
-                          rel='noopener noreferrer'
-                        >
-                          Web&rarr;
-                        </ProjectLink>
-                      </div>
-                    </BigOverviewItem>
-                    <Link to={`/project/${clickedProject.title}`}>
-                      자세히...
-                    </Link>
-                  </BigOverview>
-                </>
-              )}
-            </BigProject>
-          </BottomSheet>
-        ) : null}
-        <footer>
-          <Link to={"/"}>Back to home</Link>
-        </footer>
-      </Article>
-    </Container>
+                            Github&rarr;
+                          </ProjectLink>
+                          <ProjectLink
+                            href={clickedProject.link.project}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            Web&rarr;
+                          </ProjectLink>
+                        </div>
+                      </BigOverviewItem>
+                      <Link to={`/project/${clickedProject.title}`}>
+                        자세히...
+                      </Link>
+                    </BigOverview>
+                  </>
+                )}
+              </BigProject>
+            </BottomSheet>
+          ) : null}
+          <footer>
+            <Link to={"/"}>Back to home</Link>
+          </footer>
+        </Article>
+      </Container>
+    </AnimatePresence>
   );
 }
 

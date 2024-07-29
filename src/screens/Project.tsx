@@ -7,9 +7,9 @@ const Container = styled.div`
   padding: 55px 15px;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 100px;
   width: 100%;
-  max-width: 990px;
+  max-width: 1080px;
   margin: 0 auto;
 `;
 const ProjectHeader = styled.div`
@@ -20,7 +20,7 @@ const ProjectHeader = styled.div`
 const ProjectItem = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
   align-items: center;
 `;
 const Title = styled.h1`
@@ -34,11 +34,13 @@ const ProjectLinks = styled.div`
 `;
 const Summary = styled.p`
   line-height: 20px;
+  font-size: 1.2em;
 `;
 const Features = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 50px;
+  width: 100%;
 `;
 const Feature = styled.li<{
   $istablet: boolean;
@@ -49,6 +51,7 @@ const Feature = styled.li<{
   flex-direction: ${(props) =>
     props.$ismobile || props.$istablet ? "column" : "row-reverse"};
   gap: 50px;
+  align-items: ${(props) => (props.$ismobile || props.$istablet) && "center"};
 `;
 const FeatureTitle = styled.h3`
   font-size: 1.4em;
@@ -58,6 +61,8 @@ const FeatureTitle = styled.h3`
 const FeatureDescription = styled.p`
   text-align: left;
   flex: 1 1 100%;
+  font-size: 1.2em;
+  line-height: 1.4;
 `;
 const Img = styled.img`
   width: 100%;
@@ -65,11 +70,55 @@ const Img = styled.img`
   margin: 0 auto;
 `;
 const Skills = styled.div``;
-const SkillList = styled.ul``;
-const Skill = styled.li``;
-const SkillName = styled.p``;
-const SKillWhy = styled.p``;
+const SkillList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+const Skill = styled.li`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+const SkillName = styled.h3`
+  font-size: 1.2em;
+  font-weight: 600;
+  line-height: 1.4;
+  text-align: center;
+`;
+const SKillWhy = styled.p`
+  font-size: 1.2em;
+  line-height: 1.6;
+  text-align: center;
+`;
 const TroubleShootings = styled.div``;
+const TroubleShootingsList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+const TroubleShootingItem = styled.li`
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+`;
+const TroubleShootingCategory = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  h3 {
+    font-size: 1.2em;
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+  }
+  p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    text-align: center;
+  }
+`;
 
 function Project() {
   const isDesktop: boolean = useMediaQuery({ minWidth: 800 });
@@ -130,6 +179,7 @@ function Project() {
                       display: "flex",
                       flexDirection: "column",
                       gap: "20px",
+                      width: "400px",
                     }}
                   >
                     <FeatureTitle>{item.title}</FeatureTitle>
@@ -145,15 +195,8 @@ function Project() {
             <Skills>
               <SkillList>
                 {project.detail.skills.map((skill, index) => (
-                  <Skill
-                    key={skill.name + index + ""}
-                    style={{
-                      display: "flex",
-                      gap: "8px",
-                    }}
-                  >
+                  <Skill key={skill.name + index + ""}>
                     <SkillName>{skill.name}</SkillName>
-                    <span>:</span>
                     <SKillWhy>{skill.why}</SKillWhy>
                   </Skill>
                 ))}
@@ -163,28 +206,28 @@ function Project() {
           <ProjectItem>
             <Title>Trouble shootings</Title>
             <TroubleShootings>
-              <ul>
+              <TroubleShootingsList>
                 {project.detail.troubleShooting.map((item, index) => (
-                  <li>
-                    <div>
+                  <TroubleShootingItem key={"troubleshooting" + index + ""}>
+                    <TroubleShootingCategory>
                       <h3>문제 배경</h3>
                       <p>{item.background}</p>
-                    </div>
-                    <div>
+                    </TroubleShootingCategory>
+                    <TroubleShootingCategory>
                       <h3>해결 방법</h3>
                       <p>{item.solution}</p>
-                    </div>
-                    <div>
+                    </TroubleShootingCategory>
+                    <TroubleShootingCategory>
                       <h3>이전 코드와 비교</h3>
                       <p>{item.beforeAfter}</p>
-                    </div>
-                    <div>
+                    </TroubleShootingCategory>
+                    <TroubleShootingCategory>
                       <h3>문제를 통해 알게된 점</h3>
                       <p>{item.learn}</p>
-                    </div>
-                  </li>
+                    </TroubleShootingCategory>
+                  </TroubleShootingItem>
                 ))}
-              </ul>
+              </TroubleShootingsList>
             </TroubleShootings>
           </ProjectItem>
         </>
