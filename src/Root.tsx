@@ -59,6 +59,9 @@ body {
   background-color: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.textColor};
   overflow-x: hidden;
+  font-family: "Noto Sans KR", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
 }
 * {
   box-sizing: border-box;
