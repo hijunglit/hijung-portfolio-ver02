@@ -278,7 +278,7 @@ function About() {
                 </strong>
                 <span>(2020.04~2020.11)</span>
               </div>
-              <span>🞄프론트엔드 엔지니어링 과정 수료</span>
+              <span>-프론트엔드 엔지니어링 과정 수료</span>
             </div>
           </Education>
         </AboutBody>
