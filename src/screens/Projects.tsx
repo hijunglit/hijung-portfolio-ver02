@@ -76,9 +76,9 @@ const BigProject = styled(motion.div)<{
   overflow-y: auto;
   z-index: 99;
 `;
-const BigContentArea = styled.div`
+const BigContentArea = styled.div<{ $ismobile: boolean }>`
   width: 100%;
-  height: calc(100vh - 50px);
+  height: ${(props) => (props.$ismobile ? "calc(100vh - 50px)" : "80vh")};
   overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -292,6 +292,7 @@ function Projects() {
                 {clickedProject &&
                   (isMobile || isTablet ? (
                     <BigContentArea
+                      $ismobile={isMobile}
                       style={{
                         width: "100%",
                         height: "calc(100vh-50px)",
