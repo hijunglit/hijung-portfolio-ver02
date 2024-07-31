@@ -84,6 +84,14 @@ a {
 ::-webkit-scrollbar-corner {
   background: #fff3;
 }
+.no-scroll {
+  * when modal active */
+  touch-action: none;
+  -webkit-overflow-scrolling: none;
+  overflow: hidden;
+  /* Other browsers */
+  overscroll-behavior: contain;
+}
 
 `;
 
