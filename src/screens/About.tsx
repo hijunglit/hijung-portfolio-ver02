@@ -100,7 +100,7 @@ function About() {
         <AboutHeader>
           <AboutIntro $ismobile={isMobile}>
             안녕하세요. <br />
-            저는 프론트엔드, MERN stack 개발자 <br />
+            저는 신입 프론트엔드, MERN stack 개발자 <br />
             정해인 입니다.
           </AboutIntro>
         </AboutHeader>

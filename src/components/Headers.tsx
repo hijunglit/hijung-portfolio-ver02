@@ -5,11 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 const Title = styled.h1``;
+const AppHeader = styled.header``;
 function Header() {
   const [isDark, setIsDark] = useRecoilState(isDarkAtom);
   const toggleDarkAtom = () => setIsDark((prev) => !prev);
   return (
-    <header>
+    <AppHeader>
       <div
         style={{
           position: "absolute",
@@ -25,7 +26,7 @@ function Header() {
           onClick={toggleDarkAtom}
         />
       </div>
-    </header>
+    </AppHeader>
   );
 }
 export default Header;

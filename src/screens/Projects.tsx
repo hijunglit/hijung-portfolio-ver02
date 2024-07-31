@@ -166,15 +166,17 @@ function Projects() {
   const isTablet: boolean = useMediaQuery({ minWidth: 600, maxWidth: 800 });
   const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   const history = useNavigate();
-  const bigProjectMatch = useMatch("/projects/:projectId");
+  const bigProjectMatch = useMatch(
+    process.env.PUBLIC_URL + "/projects/:projectId"
+  );
   const { scrollY } = useScroll();
   const onBoxClicked = (projectId: number) => {
     setIsSelected(true);
-    history(`/projects/${projectId}`);
+    history(process.env.PUBLIC_URL + `/projects/${projectId}`);
   };
   const onOverlayClick = () => {
     setIsSelected(false);
-    history("/projects");
+    history(process.env.PUBLIC_URL + "/projects");
   };
   const clickedProject =
     bigProjectMatch?.params.projectId &&
@@ -332,7 +334,12 @@ function Projects() {
                           </ProjectLink>
                         </div>
                       </BigOverviewItem>
-                      <Link to={`/project/${clickedProject.title}`}>
+                      <Link
+                        to={
+                          process.env.PUBLIC_URL +
+                          `/project/${clickedProject.title}`
+                        }
+                      >
                         자세히...
                       </Link>
                     </BigOverview>
@@ -342,7 +349,7 @@ function Projects() {
             </BottomSheet>
           ) : null}
           <footer>
-            <Link to={"/"}>Back to home</Link>
+            <Link to={process.env.PUBLIC_URL + "/"}>Back to home</Link>
           </footer>
         </Article>
       </Container>

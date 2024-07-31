@@ -16,12 +16,21 @@ root.render(
   <RecoilRoot>
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Root />}>
+        <Route path={process.env.PUBLIC_URL + "/"} element={<Root />}>
           <Route path='' element={<Home />} />
-          <Route path='projects' element={<Projects />} />
-          <Route path='projects/:projectId' element={<Projects />} />
-          <Route path='project/:projectTitle' element={<Project />} />
-          <Route path='about' element={<About />} />
+          <Route
+            path={process.env.PUBLIC_URL + "/projects"}
+            element={<Projects />}
+          />
+          <Route
+            path={process.env.PUBLIC_URL + "/projects/:projectId"}
+            element={<Projects />}
+          />
+          <Route
+            path={process.env.PUBLIC_URL + "/project/:projectTitle"}
+            element={<Project />}
+          />
+          <Route path={process.env.PUBLIC_URL + "/about"} element={<About />} />
         </Route>
       </Routes>
     </BrowserRouter>

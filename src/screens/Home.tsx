@@ -63,10 +63,10 @@ function Home() {
       </Title>
       <Nav style={{}}>
         <NanList variants={itemVariants}>
-          <Link to='/projects'>Project</Link>
+          <Link to={process.env.PUBLIC_URL + "/projects"}>Project</Link>
         </NanList>
         <NanList variants={itemVariants}>
-          <Link to='/about'>About</Link>
+          <Link to={process.env.PUBLIC_URL + "/about"}>About</Link>
         </NanList>
       </Nav>
     </motion.article>
