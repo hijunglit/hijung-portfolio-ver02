@@ -1,7 +1,9 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import projectList from "../data/projectList.json";
 import styled from "styled-components";
 import { useMediaQuery } from "react-responsive";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUndo } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   padding: 55px 15px;
@@ -128,10 +130,26 @@ function Project() {
   const project = projectList.projects.find(
     (project) => project.title === projectTitle
   );
+  const goBack = () => history(-2);
+  const history = useNavigate();
   return (
     <Container>
       {project && (
         <>
+          <div
+            onClick={goBack}
+            style={{
+              position: "fixed",
+              cursor: "pointer",
+              background: "rgba(0,0,0,0.5)",
+              padding: "8px",
+              borderRadius: "20%",
+              bottom: "6vh",
+              right: "10vw",
+            }}
+          >
+            <FontAwesomeIcon icon={faUndo} size='xl' beat />
+          </div>
           <ProjectHeader>
             <ProjectItem>
               <Title>{project.name}</Title>
@@ -179,7 +197,7 @@ function Project() {
                       display: "flex",
                       flexDirection: "column",
                       gap: "20px",
-                      width: "400px",
+                      width: isDesktop ? "400px" : "",
                     }}
                   >
                     <FeatureTitle>{item.title}</FeatureTitle>

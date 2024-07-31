@@ -1,4 +1,3 @@
-import logo from "../data/projectList.json";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { isDarkAtom } from "../atoms";
