@@ -4,10 +4,9 @@ import projectList from "../data/projectList.json";
 import styled from "styled-components";
 import { BOTTOM_SHEET_HEIGHT } from "../config/constants";
 import { useMediaQuery } from "react-responsive";
-import { useRef } from "react";
 import { useRecoilState } from "recoil";
 import { isSelectedAtom } from "../atoms";
-import { useScrollConstraints } from "../utils/use-scroll-constraints";
+import { useEffect } from "react";
 
 const Container = styled(motion.div)`
   display: flex;
@@ -73,6 +72,7 @@ const BigProject = styled(motion.div)<{
   margin: 0 auto;
   border-radius: 15px !important;
   background-color: ${(props) => props.theme.cardBgColor};
+  overflow-y: auto;
   z-index: 99;
 `;
 const BigCover = styled.div`
@@ -187,8 +187,11 @@ function Projects() {
         String(project.id) === String(bigProjectMatch.params.projectId)
     );
   const [isSelected, setIsSelected] = useRecoilState(isSelectedAtom);
-  const cardRef = useRef(null);
+
+  /********************* Framer Motion  *********************/
   const animateState = isSelected ? "opened" : "closed";
+  /********************* Framer Motion  *********************/
+
   return (
     <AnimatePresence>
       <Container
@@ -249,7 +252,6 @@ function Projects() {
                 animate={{ opacity: 1 }}
               />
               <BigProject
-                ref={cardRef}
                 $ismobile={isMobile}
                 $istablet={isTablet}
                 $isDesktop={isDesktop}
@@ -257,11 +259,17 @@ function Projects() {
                 animate={animateState}
                 layoutId={bigProjectMatch.params.projectId}
                 drag={isSelected ? "y" : false}
+                dragConstraints={{ top: 0, bottom: 0 }}
                 onDrag={(event, info) => {
-                  const offsetThreshold = 400;
+                  const offsetThreshold = 150;
+                  const deltaThreshold = 10;
                   const isOverOffsetThreshold =
                     Math.abs(info.offset.y) > offsetThreshold;
-                  if (!isOverOffsetThreshold) return;
+                  const isOverDeltaThrestold =
+                    Math.abs(info.delta.y) > deltaThreshold;
+                  const isOverThreshold =
+                    isOverOffsetThreshold || isOverDeltaThrestold;
+                  if (!isOverThreshold) return;
                   const newIsSelected = info.offset.y < 0;
                   setIsSelected(newIsSelected);
                   isSelected && onOverlayClick();
