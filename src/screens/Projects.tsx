@@ -271,7 +271,7 @@ function Projects() {
                 style={{ top: scrollY.get() + 50 }}
                 animate={animateState}
                 layoutId={bigProjectMatch.params.projectId}
-                drag={isSelected ? "y" : false}
+                drag={isSelected && isDesktop ? "y" : false}
                 dragConstraints={{ top: 0, bottom: 0 }}
                 onDrag={(event, info) => {
                   const offsetThreshold = 200;
@@ -387,6 +387,9 @@ function Projects() {
                           </div>
                         </BigOverviewItem>
                         <Link
+                          onClick={() =>
+                            document.body.classList.remove("no-scroll")
+                          }
                           to={
                             process.env.PUBLIC_URL +
                             `/project/${clickedProject.title}`
@@ -398,21 +401,25 @@ function Projects() {
                     </BigContentArea>
                   ) : (
                     <>
-                      <div
-                        onClick={onOverlayClick}
-                        style={{
-                          cursor: "pointer",
-                          position: "absolute",
-                          right: 10,
-                          top: 10,
-                          backgroundColor: "rgba(0,0,0,0.5)",
-                          padding: "4px",
-                          borderRadius: "20%",
-                          color: "#fff",
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faTimes} size='lg' />
-                      </div>
+                      {isMobile ||
+                        (isTablet && (
+                          <div
+                            onClick={onOverlayClick}
+                            style={{
+                              cursor: "pointer",
+                              position: "absolute",
+                              right: 10,
+                              top: 10,
+                              backgroundColor: "rgba(0,0,0,0.5)",
+                              padding: "4px",
+                              borderRadius: "20%",
+                              color: "#fff",
+                            }}
+                          >
+                            <FontAwesomeIcon icon={faTimes} size='lg' />
+                          </div>
+                        ))}
+
                       <BigTitle>{clickedProject.title}</BigTitle>
                       <BigCover
                         style={{
