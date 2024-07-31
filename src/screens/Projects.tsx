@@ -188,7 +188,6 @@ function Projects() {
     );
   const [isSelected, setIsSelected] = useRecoilState(isSelectedAtom);
   const cardRef = useRef(null);
-  const constraints = useScrollConstraints(cardRef, isSelected);
   const animateState = isSelected ? "opened" : "closed";
   return (
     <AnimatePresence>
@@ -267,7 +266,6 @@ function Projects() {
                   setIsSelected(newIsSelected);
                   isSelected && onOverlayClick();
                 }}
-                dragConstraints={constraints}
                 dragElastic
               >
                 {clickedProject && (
