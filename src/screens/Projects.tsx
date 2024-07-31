@@ -493,6 +493,9 @@ function Projects() {
                           </div>
                         </BigOverviewItem>
                         <Link
+                          onClick={() =>
+                            document.body.classList.remove("no-scroll")
+                          }
                           to={
                             process.env.PUBLIC_URL +
                             `/project/${clickedProject.title}`
