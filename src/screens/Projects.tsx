@@ -16,7 +16,7 @@ const Container = styled(motion.div)`
 const Article = styled(motion.article)`
   max-width: 1080px;
   flex: 1 1 100%;
-  padding: 45px 15px;
+  padding: 100px 15px;
   margin: 0 auto;
 `;
 const PageTitle = styled(motion.h1)`
@@ -55,6 +55,7 @@ const Overlay = styled(motion.div)`
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   opacity: 0;
+  z-index: 9;
 `;
 const BigProject = styled(motion.div)<{
   $ismobile: boolean;
@@ -72,6 +73,7 @@ const BigProject = styled(motion.div)<{
   margin: 0 auto;
   border-radius: 15px !important;
   background-color: ${(props) => props.theme.cardBgColor};
+  z-index: 99;
 `;
 const BigCover = styled.div`
   width: 100%;

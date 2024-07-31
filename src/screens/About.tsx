@@ -8,7 +8,7 @@ const Container = styled(motion.div)`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 55px 15px;
+  padding: 100px 15px;
   width: 100%;
   max-width: 1080px;
   margin: 0 auto;
