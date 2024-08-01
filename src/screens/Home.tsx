@@ -3,9 +3,9 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Title = styled(motion.h1)`
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.6;
   text-align: center;
   margin: 100px 0;
   white-space: nowrap;
@@ -34,7 +34,6 @@ const itemVariants = {
   hidden: { opacity: 0, y: 220 },
   visible: { opacity: 1, y: 200, transition: { duration: 0.5 } },
 };
-
 function Home() {
   return (
     <motion.article
@@ -63,10 +62,10 @@ function Home() {
       </Title>
       <Nav style={{}}>
         <NanList variants={itemVariants}>
-          <Link to={process.env.PUBLIC_URL + "/projects"}>Project</Link>
+          <Link to={"projects"}>Project</Link>
         </NanList>
         <NanList variants={itemVariants}>
-          <Link to={process.env.PUBLIC_URL + "/about"}>About</Link>
+          <Link to={"about"}>About</Link>
         </NanList>
       </Nav>
     </motion.article>

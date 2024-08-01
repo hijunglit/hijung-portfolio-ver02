@@ -186,19 +186,18 @@ function Projects() {
   const isTablet: boolean = useMediaQuery({ minWidth: 600, maxWidth: 800 });
   const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   const history = useNavigate();
-  const bigProjectMatch = useMatch(
-    process.env.PUBLIC_URL + "/projects/:projectId"
-  );
+  const bigProjectMatch = useMatch("/projects/:projectId");
+  console.log(bigProjectMatch);
   const { scrollY } = useScroll();
   const onBoxClicked = (projectId: number) => {
     setIsSelected(true);
     document.body.classList.add("no-scroll");
-    history(process.env.PUBLIC_URL + `/projects/${projectId}`);
+    history(`/projects/${projectId}`);
   };
   const onOverlayClick = () => {
     setIsSelected(false);
     document.body.classList.remove("no-scroll");
-    history(process.env.PUBLIC_URL + "/projects");
+    history("/projects");
   };
   const clickedProject =
     bigProjectMatch?.params.projectId &&
@@ -388,10 +387,7 @@ function Projects() {
                         onClick={() =>
                           document.body.classList.remove("no-scroll")
                         }
-                        to={
-                          process.env.PUBLIC_URL +
-                          `/project/${clickedProject.title}`
-                        }
+                        to={`/project/${clickedProject.title}`}
                       >
                         자세히...
                       </Link>
@@ -402,8 +398,8 @@ function Projects() {
             </BottomSheet>
           ) : null}
           <Footer>
-            <Link to={process.env.PUBLIC_URL + "/"}>Back to home</Link>
-            <Link to={process.env.PUBLIC_URL + "/about"}>Go to about</Link>
+            <Link to={"/"}>Back to home</Link>
+            <Link to={"/about"}>Go to about</Link>
           </Footer>
         </Article>
       </Container>

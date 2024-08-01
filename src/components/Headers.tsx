@@ -50,7 +50,7 @@ function Header() {
   });
   return (
     <AppHeader variants={headerVariants} animate={headerAnim} initial={"top"}>
-      <Link to={process.env.PUBLIC_URL + "/"}>
+      <Link to={"/"}>
         <LogoBox />
       </Link>
       <div
