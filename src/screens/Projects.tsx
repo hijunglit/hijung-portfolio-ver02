@@ -78,7 +78,7 @@ const BigProject = styled(motion.div)<{
 `;
 const BigContentArea = styled.div<{ $ismobile: boolean; $isTablet: boolean }>`
   width: 100%;
-  height: ${(props) => (props.$ismobile ? `calc(100vh - 50px)` : "80vh")};
+  height: ${(props) => (props.$ismobile ? "calc(100vh - 50px)" : "80vh")};
   overflow-y: ${(props) => (props.$ismobile || props.$isTablet ? "auto" : "")};
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -187,7 +187,6 @@ function Projects() {
   const isMobile: boolean = useMediaQuery({ maxWidth: 600 });
   const history = useNavigate();
   const bigProjectMatch = useMatch("/projects/:projectId");
-  console.log(bigProjectMatch);
   const { scrollY } = useScroll();
   const onBoxClicked = (projectId: number) => {
     setIsSelected(true);
