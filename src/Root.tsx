@@ -88,7 +88,7 @@ a {
 .no-scroll {
   * when modal active */
   touch-action: none;
-  -webkit-overflow-scrolling: none;
+  ::-webkit-overflow-scrolling: none;
   overflow: hidden;
   /* Other browsers */
   overscroll-behavior: contain;

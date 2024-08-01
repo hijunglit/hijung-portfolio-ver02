@@ -14,9 +14,7 @@ const root = ReactDOM.createRoot(
 root.render(
   // <React.StrictMode>
   <RecoilRoot>
-    <BrowserRouter
-      basename={process.env.PUBLIC_URL + "/hijung-portfolio-ver02"}
-    >
+    <BrowserRouter>
       <Routes>
         <Route path={process.env.PUBLIC_URL + "/"} element={<Root />}>
           <Route path='' element={<Home />} />
