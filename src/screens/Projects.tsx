@@ -73,16 +73,20 @@ const BigProject = styled(motion.div)<{
   margin: 0 auto;
   border-radius: 15px !important;
   background-color: ${(props) => props.theme.cardBgColor};
-  overflow-y: auto;
+  overflow: hidden;
   z-index: 99;
 `;
 const BigContentArea = styled.div<{ $ismobile: boolean }>`
   width: 100%;
-  height: ${(props) => (props.$ismobile ? "calc(100vh - 50px)" : "80vh")};
-  overflow-y: auto;
+  height: ${(props) => (props.$ismobile ? "100%" : "80vh")};
+  overflow-y: ${(props) => (props.$ismobile ? "auto" : "")};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &::-webkit-scrollbar-thumb {
     display: none;
   }
 `;
@@ -171,6 +175,10 @@ const ProjectItem = styled.li<{ $ismobile: boolean; $isTablet: boolean }>`
 `;
 const ImageBox = styled(motion.div)`
   cursor: pointer;
+`;
+const Footer = styled.footer`
+  display: flex;
+  justify-content: space-between;
 `;
 
 function Projects() {
@@ -289,16 +297,9 @@ function Projects() {
                 }}
                 dragElastic
               >
-                {clickedProject &&
-                  (isMobile || isTablet ? (
-                    <BigContentArea
-                      $ismobile={isMobile}
-                      style={{
-                        width: "100%",
-                        height: "calc(100vh-50px)",
-                        overflowY: "auto",
-                      }}
-                    >
+                {clickedProject && (
+                  <BigContentArea $ismobile={isMobile}>
+                    {isMobile || isTablet ? (
                       <div
                         onClick={onOverlayClick}
                         style={{
@@ -314,204 +315,97 @@ function Projects() {
                       >
                         <FontAwesomeIcon icon={faTimes} size='lg' />
                       </div>
-                      <BigTitle>{clickedProject.title}</BigTitle>
-                      <BigCover
-                        style={{
-                          backgroundImage: `url(${clickedProject.img})`,
-                        }}
-                      />
-                      <BigOverview>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>기술 스택</BigOverviewTitle>
-                          <p
-                            style={{
-                              display: "flex",
-                              justifyContent: "start",
-                              flexWrap: "wrap",
-                              gap: "5px",
-                            }}
-                          >
-                            {clickedProject.detail.skills.map(
-                              (skill, index) => (
-                                <BigOverviewCategoryItem
-                                  key={skill.name + index + ""}
-                                >
-                                  {skill.name}
-                                </BigOverviewCategoryItem>
-                              )
-                            )}
-                          </p>
-                        </BigOverviewItem>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>요약</BigOverviewTitle>
-                          <p>{clickedProject.overview.summary}</p>
-                        </BigOverviewItem>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>주요 기능</BigOverviewTitle>
-                          <p
-                            style={{
-                              display: "flex",
-                              justifyContent: "start",
-                              flexWrap: "wrap",
-                              gap: "5px",
-                            }}
-                          >
-                            {clickedProject.mainFeatures.map(
-                              (feature, index) => (
-                                <BigOverviewCategoryItem
-                                  key={feature + index + ""}
-                                >
-                                  {feature}
-                                </BigOverviewCategoryItem>
-                              )
-                            )}
-                          </p>
-                        </BigOverviewItem>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>링크</BigOverviewTitle>
-                          <div>
-                            <ProjectLink
-                              href={clickedProject.link.github}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                            >
-                              Github&rarr;
-                            </ProjectLink>
-                            <ProjectLink
-                              href={clickedProject.link.project}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                            >
-                              Web&rarr;
-                            </ProjectLink>
-                          </div>
-                        </BigOverviewItem>
-                        <Link
-                          onClick={() =>
-                            document.body.classList.remove("no-scroll")
-                          }
-                          to={
-                            process.env.PUBLIC_URL +
-                            `/project/${clickedProject.title}`
-                          }
-                        >
-                          자세히...
-                        </Link>
-                      </BigOverview>
-                    </BigContentArea>
-                  ) : (
-                    <>
-                      {isMobile ||
-                        (isTablet && (
-                          <div
-                            onClick={onOverlayClick}
-                            style={{
-                              cursor: "pointer",
-                              position: "absolute",
-                              right: 10,
-                              top: 10,
-                              backgroundColor: "rgba(0,0,0,0.5)",
-                              padding: "4px",
-                              borderRadius: "20%",
-                              color: "#fff",
-                            }}
-                          >
-                            <FontAwesomeIcon icon={faTimes} size='lg' />
-                          </div>
-                        ))}
+                    ) : (
+                      ""
+                    )}
 
-                      <BigTitle>{clickedProject.title}</BigTitle>
-                      <BigCover
-                        style={{
-                          backgroundImage: `url(${clickedProject.img})`,
-                        }}
-                      />
-                      <BigOverview>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>기술 스택</BigOverviewTitle>
-                          <p
-                            style={{
-                              display: "flex",
-                              justifyContent: "start",
-                              flexWrap: "wrap",
-                              gap: "5px",
-                            }}
-                          >
-                            {clickedProject.detail.skills.map(
-                              (skill, index) => (
-                                <BigOverviewCategoryItem
-                                  key={skill.name + index + ""}
-                                >
-                                  {skill.name}
-                                </BigOverviewCategoryItem>
-                              )
-                            )}
-                          </p>
-                        </BigOverviewItem>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>요약</BigOverviewTitle>
-                          <p>{clickedProject.overview.summary}</p>
-                        </BigOverviewItem>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>주요 기능</BigOverviewTitle>
-                          <p
-                            style={{
-                              display: "flex",
-                              justifyContent: "start",
-                              flexWrap: "wrap",
-                              gap: "5px",
-                            }}
-                          >
-                            {clickedProject.mainFeatures.map(
-                              (feature, index) => (
-                                <BigOverviewCategoryItem
-                                  key={feature + index + ""}
-                                >
-                                  {feature}
-                                </BigOverviewCategoryItem>
-                              )
-                            )}
-                          </p>
-                        </BigOverviewItem>
-                        <BigOverviewItem>
-                          <BigOverviewTitle>링크</BigOverviewTitle>
-                          <div>
-                            <ProjectLink
-                              href={clickedProject.link.github}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                            >
-                              Github&rarr;
-                            </ProjectLink>
-                            <ProjectLink
-                              href={clickedProject.link.project}
-                              target='_blank'
-                              rel='noopener noreferrer'
-                            >
-                              Web&rarr;
-                            </ProjectLink>
-                          </div>
-                        </BigOverviewItem>
-                        <Link
-                          onClick={() =>
-                            document.body.classList.remove("no-scroll")
-                          }
-                          to={
-                            process.env.PUBLIC_URL +
-                            `/project/${clickedProject.title}`
-                          }
+                    <BigTitle>{clickedProject.title}</BigTitle>
+                    <BigCover
+                      style={{
+                        backgroundImage: `url(${clickedProject.img})`,
+                      }}
+                    />
+                    <BigOverview>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>기술 스택</BigOverviewTitle>
+                        <p
+                          style={{
+                            display: "flex",
+                            justifyContent: "start",
+                            flexWrap: "wrap",
+                            gap: "5px",
+                          }}
                         >
-                          자세히...
-                        </Link>
-                      </BigOverview>
-                    </>
-                  ))}
+                          {clickedProject.detail.skills.map((skill, index) => (
+                            <BigOverviewCategoryItem
+                              key={skill.name + index + ""}
+                            >
+                              {skill.name}
+                            </BigOverviewCategoryItem>
+                          ))}
+                        </p>
+                      </BigOverviewItem>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>요약</BigOverviewTitle>
+                        <p>{clickedProject.overview.summary}</p>
+                      </BigOverviewItem>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>주요 기능</BigOverviewTitle>
+                        <p
+                          style={{
+                            display: "flex",
+                            justifyContent: "start",
+                            flexWrap: "wrap",
+                            gap: "5px",
+                          }}
+                        >
+                          {clickedProject.mainFeatures.map((feature, index) => (
+                            <BigOverviewCategoryItem key={feature + index + ""}>
+                              {feature}
+                            </BigOverviewCategoryItem>
+                          ))}
+                        </p>
+                      </BigOverviewItem>
+                      <BigOverviewItem>
+                        <BigOverviewTitle>링크</BigOverviewTitle>
+                        <div>
+                          <ProjectLink
+                            href={clickedProject.link.github}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            Github&rarr;
+                          </ProjectLink>
+                          <ProjectLink
+                            href={clickedProject.link.project}
+                            target='_blank'
+                            rel='noopener noreferrer'
+                          >
+                            Web&rarr;
+                          </ProjectLink>
+                        </div>
+                      </BigOverviewItem>
+                      <Link
+                        onClick={() =>
+                          document.body.classList.remove("no-scroll")
+                        }
+                        to={
+                          process.env.PUBLIC_URL +
+                          `/project/${clickedProject.title}`
+                        }
+                      >
+                        자세히...
+                      </Link>
+                    </BigOverview>
+                  </BigContentArea>
+                )}
               </BigProject>
             </BottomSheet>
           ) : null}
-          <footer>
+          <Footer>
             <Link to={process.env.PUBLIC_URL + "/"}>Back to home</Link>
-          </footer>
+            <Link to={process.env.PUBLIC_URL + "/about"}>Go to about</Link>
+          </Footer>
         </Article>
       </Container>
     </AnimatePresence>

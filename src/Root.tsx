@@ -4,6 +4,7 @@ import { useRecoilValue } from "recoil";
 import { isDarkAtom } from "./atoms";
 import { darkTheme, lightTheme } from "./theme";
 import Header from "./components/Headers";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 const GlobalStyle = createGlobalStyle`
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -100,9 +101,14 @@ function Root() {
   return (
     <>
       <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
-        <GlobalStyle />
-        <Header />
-        <Outlet />
+        <HelmetProvider>
+          <Helmet>
+            <title>hijung portfolio</title>
+          </Helmet>
+          <GlobalStyle />
+          <Header />
+          <Outlet />
+        </HelmetProvider>
       </ThemeProvider>
     </>
   );
