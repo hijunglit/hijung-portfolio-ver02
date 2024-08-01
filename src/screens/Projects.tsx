@@ -76,10 +76,10 @@ const BigProject = styled(motion.div)<{
   overflow: hidden;
   z-index: 99;
 `;
-const BigContentArea = styled.div<{ $ismobile: boolean }>`
+const BigContentArea = styled.div<{ $ismobile: boolean; $isTablet: boolean }>`
   width: 100%;
   height: ${(props) => (props.$ismobile ? `calc(100vh - 50px)` : "80vh")};
-  overflow-y: ${(props) => (props.$ismobile ? "auto" : "")};
+  overflow-y: ${(props) => (props.$ismobile || props.$isTablet ? "auto" : "")};
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
@@ -297,7 +297,7 @@ function Projects() {
                 dragElastic
               >
                 {clickedProject && (
-                  <BigContentArea $ismobile={isMobile}>
+                  <BigContentArea $ismobile={isMobile} $isTablet={isTablet}>
                     {isMobile || isTablet ? (
                       <div
                         onClick={onOverlayClick}
