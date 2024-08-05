@@ -33,6 +33,12 @@ const ProjectLinks = styled.div`
   display: flex;
   justify-content: center;
   gap: 16px;
+  a {
+    padding: 8px 12px;
+    border: ${(props) => `1px solid ${props.theme.textColor}`};
+    border-radius: 20px;
+    text-decoration: none;
+  }
 `;
 const Summary = styled.p`
   line-height: 20px;

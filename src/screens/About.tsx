@@ -123,6 +123,7 @@ function About() {
                 <a
                   href='https://github.com/hijunglit/buddypals'
                   target='_blank'
+                  rel='noopener noreferrer'
                   style={{ color: "#ff0066" }}
                 >
                   SNS 어플리케이션
@@ -143,6 +144,7 @@ function About() {
                 <a
                   href='https://github.com/hijunglit/watflix'
                   target='_blank'
+                  rel='noopener noreferrer'
                   style={{ color: "#ff0066" }}
                 >
                   영화정보를 제공하는 어플리케이션
@@ -166,7 +168,11 @@ function About() {
               <p>📧 hijungjob@gmail.com</p>
               <p>📞 010-7916-4222</p>
               <p>
-                <a href='https://github.com/hijunglit' target='_blank'>
+                <a
+                  href='https://github.com/hijunglit'
+                  target='_blank'
+                  rel='noopener noreferrer'
+                >
                   💻Github
                 </a>
               </p>
