@@ -121,7 +121,7 @@ function About() {
               MERN stack 으로 제작한
               <mark>
                 <a
-                  href='https://github.com/hijunglit/buddypals'
+                  href='https://buddypals.onrender.com/'
                   target='_blank'
                   rel='noopener noreferrer'
                   style={{ color: "#ff0066" }}
@@ -142,7 +142,7 @@ function About() {
               를 이용해서 <br />
               <mark>
                 <a
-                  href='https://github.com/hijunglit/watflix'
+                  href='https://hijunglit.github.io/watflix/'
                   target='_blank'
                   rel='noopener noreferrer'
                   style={{ color: "#ff0066" }}
