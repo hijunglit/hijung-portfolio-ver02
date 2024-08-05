@@ -193,10 +193,21 @@ function About() {
                 <Skill>
                   <SkillName>React.js</SkillName>
                   <Abilities>
-                    <li>useState, recoil를 사용한 상태관리를 할 줄 압니다.</li>
+                    <li>
+                      컴포넌트 기반 아키텍처를 사용하여 재사용 가능한 UI 요소를
+                      개발할 줄 압니다.
+                    </li>
                     <li>
                       react query를 이용하여 코드의 가독성을 높이고 데이터를
                       캐싱할 줄 압니다.
+                    </li>
+                    <li>
+                      Axios를 사용하여 restful API와 통신하며 데이터를 가져오고
+                      처리할 수 있습니다.
+                    </li>
+                    <li>
+                      React Router를 이용해 다중 페이지 어플리케이션의 라우팅을
+                      구현할 수 있습니다.
                     </li>
                   </Abilities>
                 </Skill>
@@ -204,8 +215,16 @@ function About() {
                   <SkillName>Typescript</SkillName>
                   <Abilities>
                     <li>
-                      interface를 이용해 타입을 지정할 줄 알고 react 컴포넌트의
-                      prop 에 타입을 알려줄 수 있습니다.
+                      컴포넌트 기반의 React 프로젝트에서 TypeScript를 사용하여
+                      타입 안전성을 강화할 수 있습니다.
+                    </li>
+                    <li>
+                      API 호출 시 데이터 타입을 명확히 정의하여 런타임 오류를
+                      줄입니다.
+                    </li>
+                    <li>
+                      타입 추론과 인터페이스를 활용해 코드의 가독성과
+                      유지보수성을 높일 수 있습니다.
                     </li>
                   </Abilities>
                 </Skill>
@@ -229,11 +248,19 @@ function About() {
                 <Skill>
                   <SkillName>MongoDB</SkillName>
                   <Abilities>
-                    <li>Schema, Model 을 이해하고 사용할 수 있습니다.</li>
-                    <li>populate를 이용한 관계형 DB를 구축할 수 있습니다.</li>
                     <li>
                       Schema를 이용한 데이터의 형태를 만들고 model api 를 활용한
                       CRUD를 구현할 수 있습니다.
+                    </li>
+                    <li>Schema, Model 을 이해하고 사용할 수 있습니다.</li>
+                    <li>
+                      MongoDB Atlas를 통해 클라우드 기반 데이터베이스를 설정하고
+                      관리할 수 있습니다.
+                    </li>
+                    <li>populate를 이용한 관계형 DB를 구축할 수 있습니다.</li>
+                    <li>
+                      Mongoose 라이브러리를 활용하여 Node.js 어플리케이션과
+                      MongoDB 간의 데이터 모델링을 구현할 수 있습니다.
                     </li>
                   </Abilities>
                 </Skill>
