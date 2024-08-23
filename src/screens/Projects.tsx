@@ -344,6 +344,9 @@ function Projects() {
                       </BigOverviewItem>
                       <BigOverviewItem>
                         <BigOverviewTitle>요약</BigOverviewTitle>
+                        <strong style={{ fontWeight: 600 }}>
+                          {clickedProject.personnel}
+                        </strong>
                         <p>{clickedProject.overview.summary}</p>
                       </BigOverviewItem>
                       <BigOverviewItem>
