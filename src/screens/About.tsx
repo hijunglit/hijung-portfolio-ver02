@@ -191,6 +191,16 @@ function About() {
               <SkillsCategory>Front-end</SkillsCategory>
               <SkillsList>
                 <Skill>
+                  <SkillName>HTML & CSS</SkillName>
+                  <Abilities>
+                    <li>시맨틱한 마크업 작업을 합니다.</li>
+                    <li>
+                      flex, grid 속성의 차이점을 이해하고 grid 속성을 이용한
+                      반응형 웹을 제작할 줄 압니다.
+                    </li>
+                  </Abilities>
+                </Skill>
+                <Skill>
                   <SkillName>React.js</SkillName>
                   <Abilities>
                     <li>
@@ -212,8 +222,14 @@ function About() {
                   </Abilities>
                 </Skill>
                 <Skill>
-                  <SkillName>Typescript</SkillName>
+                  <SkillName>Javascript & Typescript</SkillName>
                   <Abilities>
+                    <li>
+                      localstorage를 이용한 영구 데이터 관리를 할 수 있습니다.
+                    </li>
+                    <li>
+                      async await 문법을 이용한 비동기 작업을 할 수 있습니다.
+                    </li>
                     <li>
                       컴포넌트 기반의 React 프로젝트에서 TypeScript를 사용하여
                       타입 안전성을 강화할 수 있습니다.
