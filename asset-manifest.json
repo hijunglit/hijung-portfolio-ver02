@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/hijung-portfolio-ver02/static/js/main.ccae4cc4.js",
+    "main.js": "/hijung-portfolio-ver02/static/js/main.be9bd7d4.js",
     "index.html": "/hijung-portfolio-ver02/index.html",
-    "main.ccae4cc4.js.map": "/hijung-portfolio-ver02/static/js/main.ccae4cc4.js.map"
+    "main.be9bd7d4.js.map": "/hijung-portfolio-ver02/static/js/main.be9bd7d4.js.map"
   },
   "entrypoints": [
-    "static/js/main.ccae4cc4.js"
+    "static/js/main.be9bd7d4.js"
   ]
 }
