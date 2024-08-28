@@ -132,27 +132,6 @@ function About() {
               을 1인 개발한 경험이 있습니다.
             </p>
           </div>
-          <div>
-            <h3 style={{ fontSize: "1.2em", lineHeight: 1.6, fontWeight: 600 }}>
-              기술 자체보다 기술이 해결해주는 문제가 무엇인지 이해하고 사용하는
-              것을 중요하게 생각합니다.
-            </h3>
-            <p>
-              반복되는 컴포넌트가 많은 어플리케이션을 재사용할 수 있는 react.js
-              를 이용해서 <br />
-              <mark>
-                <a
-                  href='https://hijunglit.github.io/watflix/'
-                  target='_blank'
-                  rel='noopener noreferrer'
-                  style={{ color: "#ff0066" }}
-                >
-                  영화정보를 제공하는 어플리케이션
-                </a>
-              </mark>
-              을 개발한 경험이 있습니다.
-            </p>
-          </div>
           <PersonalInfo
             $ismobile={isMobile}
             style={{
