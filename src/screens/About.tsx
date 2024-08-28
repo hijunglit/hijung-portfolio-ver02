@@ -206,6 +206,7 @@ function About() {
                     <li>
                       localstorage를 이용한 영구 데이터 관리를 할 수 있습니다.
                     </li>
+                    <li>ES6 문법을 이해하고 사용합니다.</li>
                     <li>
                       async await 문법을 이용한 비동기 작업을 할 수 있습니다.
                     </li>
