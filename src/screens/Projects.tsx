@@ -79,7 +79,7 @@ const BigProject = styled(motion.div)<{
 const BigContentArea = styled.div<{ $ismobile: boolean; $isTablet: boolean }>`
   width: 100%;
   height: ${(props) => (props.$ismobile ? "calc(100vh - 50px)" : "80vh")};
-  overflow-y: ${(props) => (props.$ismobile || props.$isTablet ? "auto" : "")};
+  overflow-y: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
   &::-webkit-scrollbar {
